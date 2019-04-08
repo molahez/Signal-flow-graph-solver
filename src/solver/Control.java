@@ -1,4 +1,4 @@
-package gg;
+package solver;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +33,7 @@ public class Control {
 	private static String[][] check111; // It's used to check that curves are not same direction
 	private static int[][] map;
 	private static String[][] map_S;
+	private CalculationLogic logic;
 
 	private static Boolean selfflag = false;
 
@@ -144,16 +145,16 @@ public class Control {
 
 	@FXML
 	void ac1(ActionEvent event) {
-		String imagePath = "file:\\C:\\Users\\LENOVO\\Desktop\\req1.png";
+		String imagePath = "file:req1.png";
 		Image image = new Image(imagePath);
 
-		String imagePath2 = "file:\\C:\\Users\\LENOVO\\Desktop\\req2.png";
+		String imagePath2 = "file:req2.png";
 		Image image2 = new Image(imagePath2);
 
-		String imagePath3 = "file:\\C:\\Users\\LENOVO\\Desktop\\req11.png";
+		String imagePath3 = "file:req11.png";
 		Image image3 = new Image(imagePath3);
 
-		String imagePath4 = "file:\\C:\\Users\\LENOVO\\Desktop\\req22.png";
+		String imagePath4 = "file:req22.png";
 		Image image4 = new Image(imagePath4);
 		if ((Integer.parseInt(text1.getText()) > Integer.parseInt(text5.getText()))
 				|| (Integer.parseInt(text2.getText()) > Integer.parseInt(text5.getText()))) {
@@ -514,7 +515,7 @@ public class Control {
 				check1[j][k] = false;
 				check11[j][k] = false;
 				check111[j][k] = " ";
-				map_S[j][k] = " ";
+				map_S[j][k] = "";
 				map[j][k] = 0;
 
 			}
@@ -541,9 +542,9 @@ public class Control {
 
 	@FXML
 	void ac3(ActionEvent event) {
-		text6.setText("awl 7aga");
+		logic = new CalculationLogic(map, map_S);
+		text6.setText(logic.getOverall());
 		text6.appendText("\n");
-		text6.appendText("tany 7aga");
 	}
 
 	private static void initDraw(GraphicsContext gc) {

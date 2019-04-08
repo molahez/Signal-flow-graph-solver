@@ -1,4 +1,4 @@
-package gg;
+package solver;
 
 import java.io.IOException;
 
@@ -20,7 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
-public class gg extends Application {
+public class Main extends Application {
 
 	public static void main(String[] args) {
 		Control z = new Control();
