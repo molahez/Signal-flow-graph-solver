@@ -13,14 +13,14 @@ public class CalculationLogic {
 	private String arr1[][];
 	private ArrayList<ArrayList<Integer>> forward;
 	private ArrayList<ArrayList<Integer>> loop = new ArrayList<>();
-	private ArrayList<InfoHolder>single;
+	private ArrayList<InfoHolder> single;
 
-	public CalculationLogic (int arr[][], String arr2[][]) {
+	public CalculationLogic(int arr[][], String arr2[][]) {
 		this.arr = arr;
 		this.arr1 = arr2;
 	}
 
-	public String forwardSeq (int startPoint) { // Detecting forward paths in one string
+	private String forwardSeq(int startPoint) { // Detecting forward paths in one string
 		for (int i = startPoint + 1; i < arr[0].length; i++) {
 			if (arr[startPoint][i] == 1) {
 				if (!paths.endsWith(Integer.toString(startPoint))) {
@@ -35,7 +35,7 @@ public class CalculationLogic {
 		return paths;
 	}
 
-	public void detectLoops () { // Detect single loops
+	private void detectLoops() { // Detect single loops
 		loop = new ArrayList<>();
 		ArrayList<Integer> singleLoop = new ArrayList<>();
 		for (int i = 1; i < arr.length; i++) {
@@ -47,11 +47,6 @@ public class CalculationLogic {
 								singleLoop.add(forward.get(x).get(y));
 							}
 							singleLoop.add(j);
-							for (int z = 0; z < singleLoop.size(); z++) {
-								if (z == singleLoop.size() - 1) {
-									System.out.println(" ");
-								}
-								}
 							loop.add((ArrayList<Integer>) singleLoop.clone());
 							singleLoop.clear();
 						}
@@ -61,12 +56,9 @@ public class CalculationLogic {
 		}
 	}
 
-	public void forwardBaths (String paths) { // Switch forward paths' string into array of integers
+	private void forwardBaths(String paths) { // Switch forward paths' string into array of integers
 
 		String[] s = paths.split(",");
-		for (int i = 0; i < s.length; i++) {
-			System.out.println(s[i]);
-		}
 		ArrayList<Integer> forwards = new ArrayList<>();
 		forward = new ArrayList<>();
 
@@ -77,10 +69,10 @@ public class CalculationLogic {
 				for (int j = 0; j < forwards.size(); j++) {
 					if (j == forwards.size() - 1) {
 					}
-					}
+				}
 				forwards.clear();
-				if ((i + 1) < s.length && Integer.valueOf(s[i+1]) != 0) {
-					for (int x = 0  ; x < Integer.valueOf(s[i + 1]); x++) {
+				if ((i + 1) < s.length && Integer.valueOf(s[i + 1]) != 0) {
+					for (int x = 0; x < Integer.valueOf(s[i + 1]); x++) {
 						forwards.add(x);
 					}
 				}
@@ -91,7 +83,7 @@ public class CalculationLogic {
 
 	}
 
-	public void detectTwoNonTouching() { // Detecting two non touching loops
+	private void detectTwoNonTouching() { // Detecting two non touching loops
 		ArrayList<ArrayList<Integer>> twoNonTouching = new ArrayList<>();
 		String numLoops = "";
 		single = new ArrayList<>();
@@ -104,7 +96,7 @@ public class CalculationLogic {
 					numLoops = "";
 					numLoops += i;
 					numLoops += j;
-					single.add(new InfoHolder(numLoops, (ArrayList<ArrayList<Integer>>)twoNonTouching.clone()));
+					single.add(new InfoHolder(numLoops, (ArrayList<ArrayList<Integer>>) twoNonTouching.clone()));
 					twoNonTouching.clear();
 				}
 			}
@@ -113,7 +105,7 @@ public class CalculationLogic {
 	}
 
 	// Checking two non touching loops
-	public boolean checker (ArrayList<Integer> loop1, ArrayList<Integer> loop2) {
+	private boolean checker(ArrayList<Integer> loop1, ArrayList<Integer> loop2) {
 		Set<Integer> set = new HashSet<>();
 
 		for (int i = 0; i < loop1.size(); i++) {
@@ -135,13 +127,13 @@ public class CalculationLogic {
 		}
 	}
 
-	public int[] contain (InfoHolder arr1, InfoHolder arr2) {
+	private int[] contain(InfoHolder arr1, InfoHolder arr2) {
 		int counter = 0;
 		int[] positions = new int[2];
 
 		for (int i = 0; i < arr1.getNonTouching().size(); i++) {
 			if (arr2.getNonTouching().contains(arr1.getNonTouching().get(i))) {
-				counter ++;
+				counter++;
 			} else {
 				positions[0] = i;
 				continue;
@@ -150,7 +142,7 @@ public class CalculationLogic {
 
 		for (int i = 0; i < arr2.getNonTouching().size(); i++) {
 			if (arr1.getNonTouching().contains(arr2.getNonTouching().get(i))) {
-				//counter ++;
+				// counter ++;
 			} else {
 				positions[1] = i;
 				continue;
@@ -164,7 +156,7 @@ public class CalculationLogic {
 		}
 	}
 
-	public void getNonTouching (ArrayList<InfoHolder> arr) {
+	private void getNonTouching(ArrayList<InfoHolder> arr) {
 		int k = 0;
 		Set<ArrayList<Integer>> set = new HashSet<>();
 		Set<String> set1 = new HashSet<>();
@@ -177,8 +169,9 @@ public class CalculationLogic {
 			for (int j = i + 1; j < arr.size() - k; j++) {
 				positions = contain(arr.get(i), arr.get(j));
 				if (positions != null) {
-					if (checker(arr.get(i).getNonTouching().get(positions[0]), arr.get(j).getNonTouching().get(positions[1]))) {
-						k ++;
+					if (checker(arr.get(i).getNonTouching().get(positions[0]),
+							arr.get(j).getNonTouching().get(positions[1]))) {
+						k++;
 
 						for (int x = 0; x < arr.get(i).getNonTouching().size(); x++) {
 							set.add(arr.get(i).getNonTouching().get(x));
@@ -196,12 +189,12 @@ public class CalculationLogic {
 						chars = s.toCharArray();
 						Set<Character> charSet = new LinkedHashSet<Character>();
 						for (char c : chars) {
-						    charSet.add(c);
+							charSet.add(c);
 						}
 
 						sb = new StringBuilder();
 						for (Character character : charSet) {
-						    sb.append(character);
+							sb.append(character);
 						}
 						arr.add(new InfoHolder(sb.toString(), (ArrayList<ArrayList<Integer>>) afterSet.clone()));
 						afterSet.clear();
@@ -217,7 +210,7 @@ public class CalculationLogic {
 		}
 	}
 
-	public void removingDuplicate() {
+	private void removingDuplicate() {
 		Set<Character> set = new LinkedHashSet<Character>();
 		StringBuilder sb;
 		char[] chars;
@@ -230,16 +223,18 @@ public class CalculationLogic {
 				s += single.get(j).getNumLoops();
 				chars = s.toCharArray();
 				for (char c : chars) {
-				    set.add(c);
+					set.add(c);
 				}
 
 				sb = new StringBuilder();
 
 				for (Character character : set) {
-				    sb.append(character);
+					sb.append(character);
 				}
 
-				if (sb.toString().length() == (single.get(i).getNumLoops().length() + single.get(j).getNumLoops().length()) / 2) {
+				if (sb.toString()
+						.length() == (single.get(i).getNumLoops().length() + single.get(j).getNumLoops().length())
+								/ 2) {
 					single.remove(j);
 					j--;
 					set.clear();
@@ -248,7 +243,7 @@ public class CalculationLogic {
 		}
 	}
 
-	public String getDeltaNonTouching(ArrayList<InfoHolder> arr, ArrayList<ArrayList<Integer>> arr2) {
+	private String getDeltaNonTouching(ArrayList<InfoHolder> arr, ArrayList<ArrayList<Integer>> arr2) {
 		int counter = 2;
 		String s = "";
 		for (int i = 0; i < arr.size(); i++) {
@@ -258,7 +253,7 @@ public class CalculationLogic {
 				for (int x = 0; x < arr.get(i).getNumLoops().length(); x++) {
 					s += loopGain(arr.get(i).getNonTouching().get(x));
 					if (x != arr.get(i).getNumLoops().length() - 1)
-					s += " * ";
+						s += " * ";
 				}
 				if (i != arr.size() - 1) {
 					s += " + ";
@@ -290,7 +285,7 @@ public class CalculationLogic {
 		return s1;
 	}
 
-	public ArrayList<String> deltaForward() {
+	private ArrayList<String> deltaForward() {
 		Set<Integer> set = new HashSet<>();
 		int length = 0;
 		ArrayList<String> deltaForwardPaths = new ArrayList<>();
@@ -318,18 +313,18 @@ public class CalculationLogic {
 					arr.remove(j);
 					j--;
 				}
-				 if (j == arr.size() - 1)
-					 break;
+				if (j == arr.size() - 1)
+					break;
 			}
 			ArrayList<ArrayList<Integer>> loops = new ArrayList<>(loop);
 			for (int x = 0; x < loops.size(); x++) {
 				for (int y = 0; y < loops.get(x).size(); y++) {
-				if (forward.get(i).contains(loops.get(x).get(y))) {
-					loops.remove(x);
-					y--;
-				}
-				if (loops.isEmpty() || y == loops.size() - 1) {
-					break;
+					if (forward.get(i).contains(loops.get(x).get(y))) {
+						loops.remove(x);
+						y--;
+					}
+					if (loops.isEmpty() || y == loops.size() - 1) {
+						break;
 					}
 				}
 			}
@@ -339,7 +334,7 @@ public class CalculationLogic {
 		return deltaForwardPaths;
 	}
 
-	public ArrayList<String> forwardPathsGain() {
+	private ArrayList<String> forwardPathsGain() {
 		ArrayList<String> gain = new ArrayList<>();
 		String s = "";
 		s += "( ";
@@ -350,7 +345,6 @@ public class CalculationLogic {
 					s += " * ";
 				if (j == forward.get(i).size() - 2) {
 					s += " )";
-					System.out.println(s);
 					gain.add(s);
 					s = "";
 					s += "( ";
@@ -360,63 +354,111 @@ public class CalculationLogic {
 		return gain;
 	}
 
-   public String ovarallTransferFunction (ArrayList<String> forwards, ArrayList<String> deltaForwards) {
-	  String s = "";
-	  s += "R(S) / C(S) = ";
+	private String ovarallTransferFunction(ArrayList<String> forwards, ArrayList<String> deltaForwards) {
+		String s = "";
+		s += "R(S) / C(S) = ";
 
-	  for (int i = 0; i < forwards.size(); i++) {
-		  s += forwards.get(i);
-		  s += " * ";
-		  s += "( ";
-		  s += deltaForwards.get(i);
-		  s += " )";
-		  if (i != forwards.size() - 1)
-			  s += " + ";
-	  }
-	  s += " / ";
-	  s += getDeltaNonTouching(single, loop);
-	  return s;
-   }
+		for (int i = 0; i < forwards.size(); i++) {
+			s += forwards.get(i);
+			s += " * ";
+			s += "( ";
+			s += deltaForwards.get(i);
+			s += " )";
+			if (i != forwards.size() - 1)
+				s += " + ";
+		}
+		s += " / ";
+		s += getDeltaNonTouching(single, loop);
+		return s;
+	}
 
-   public String loopGain (ArrayList<Integer> loop) {
-	   String s = "";
-	   s += "( ";
+	private String loopGain(ArrayList<Integer> loop) {
+		String s = "";
+		s += "( ";
 
-	   for (int i = 0; i < loop.size() - 1; i++) {
-		   s += arr1[loop.get(i)][loop.get(i + 1)];
+		for (int i = 0; i < loop.size() - 1; i++) {
+			s += arr1[loop.get(i)][loop.get(i + 1)];
 
-		   if (i != loop.size() - 2)
-			   s += " * ";
-	   }
+			if (i != loop.size() - 2)
+				s += " * ";
+		}
 
-	   s += " )";
-	   return s;
-   }
-   
-   public String getOverall() {
-	        forwardSeq(0);
-	 		forwardBaths(paths);
-	 		detectLoops();
+		s += " )";
+		return s;
+	}
 
-	 		Set<ArrayList<Integer>> set = new HashSet<>(loop);
-	 		loop.clear();
-	 		loop.addAll(set);
-	 		
-	 		detectLoops();
+	public String getOverall() {
+		forwardSeq(0);
+		forwardBaths(paths);
+		detectLoops();
 
-	 		detectTwoNonTouching();
+		Set<ArrayList<Integer>> set = new HashSet<>(loop);
+		loop.clear();
+		loop.addAll(set);
 
-	 		getNonTouching(single);
+		detectLoops();
 
-	 		removingDuplicate();
+		detectTwoNonTouching();
 
-	 		getDeltaNonTouching(single, loop);
+		getNonTouching(single);
 
-	 		deltaForward();
+		removingDuplicate();
 
-	 		forwardPathsGain();
+		getDeltaNonTouching(single, loop);
 
-	 	return	ovarallTransferFunction(forwardPathsGain(),deltaForward());
-   }
+		deltaForward();
+
+		forwardPathsGain();
+
+		return ovarallTransferFunction(forwardPathsGain(), deltaForward());
+	}
+
+	public String forwardPathString() {
+		String s = "";
+		ArrayList<String> ss = new ArrayList<>();
+		ss = forwardPathsGain();
+		s += "Forward Paths: \n";
+		for (int i = 0; i < ss.size(); i++) {
+			s += ss.get(i);
+			s += "\n";
+		}
+		return s;
+	}
+
+	public String getDeltaForward() {
+		String s = "";
+		ArrayList<String> ss = new ArrayList<>();
+		ss = deltaForward();
+		s += "Delta Forward Paths: \n";
+		for (int i = 0; i < ss.size(); i++) {
+			s += ss.get(i);
+			s += "\n";
+		}
+		return s;
+	}
+
+	public String getLoopsGain() {
+		String s = "";
+		s += "Loops Gain: \n";
+		for (int i = 0; i < loop.size(); i++) {
+			s += loopGain(loop.get(i));
+			s += "\n";
+		}
+		return s;
+	}
+
+	public String nonTouchingLoops() {
+		String s = "";
+		s += "Non Touching Loops: \n";
+		for (int i = 0; i < single.size(); i++) {
+			for (int j = 0; j < single.get(i).getNonTouching().size(); j++) {
+				s += loopGain(single.get(i).getNonTouching().get(j));
+				if (j != single.get(i).getNonTouching().size() - 1)
+					s += ",";
+			}
+			s += "\n";
+		}
+		return s;
+	}
 
 }

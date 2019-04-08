@@ -545,6 +545,17 @@ public class Control {
 		logic = new CalculationLogic(map, map_S);
 		text6.setText(logic.getOverall());
 		text6.appendText("\n");
+		text6.appendText("\n");
+		text6.appendText(logic.forwardPathString());
+		text6.appendText("\n");
+		text6.appendText("\n");
+		text6.appendText(logic.getLoopsGain());
+		text6.appendText("\n");
+		text6.appendText("\n");
+		text6.appendText(logic.nonTouchingLoops());
+		text6.appendText("\n");
+		text6.appendText("\n");
+		text6.appendText(logic.getDeltaForward());
 	}
 
 	private static void initDraw(GraphicsContext gc) {
