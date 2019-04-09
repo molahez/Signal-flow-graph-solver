@@ -41,7 +41,7 @@ public class Control {
 		Control.cs = c;
 		graphicsContext = c.getGraphicsContext2D();
 		initDraw(graphicsContext);
-
+		
 	}
 
 	public static void setMyVariable(String x1, String y1, String x2, String y2, String nodes, String flag) {
@@ -499,6 +499,7 @@ public class Control {
 		text2.setDisable(false);
 		text3.setDisable(false);
 		btn1.setDisable(false);
+		btn2.setDisable(false);
 		setMyVariable("", "", "", "", text5.getText(), "");
 		text5.setDisable(true);
 		btn5.setDisable(true);
@@ -585,6 +586,7 @@ public class Control {
 		text2.setDisable(true);
 		text3.setDisable(true);
 		btn1.setDisable(true);
+		btn2.setDisable(true);
 		op1.setValue("Direction");
 		op1.setItems((ObservableList<?>) zz);
 		op2.setValue("type");
