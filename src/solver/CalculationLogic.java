@@ -38,7 +38,7 @@ public class CalculationLogic {
 	private void detectLoops() { // Detect single loops
 		loop = new ArrayList<>();
 		ArrayList<Integer> singleLoop = new ArrayList<>();
-		for (int i = 1; i < arr.length; i++) {
+		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr[0].length; j++) {
 				if (i > j && arr[i][j] == 1) {
 					for (int x = 0; x < forward.size(); x++) {
@@ -51,6 +51,12 @@ public class CalculationLogic {
 							singleLoop.clear();
 						}
 					}
+				} else if (i == j && arr[i][j] == 1) {
+					singleLoop.add(i);
+					singleLoop.add(j);
+					System.out.println(i);
+					loop.add((ArrayList<Integer>) singleLoop.clone());
+					singleLoop.clear();
 				}
 			}
 		}
@@ -258,7 +264,7 @@ public class CalculationLogic {
 				if (i != arr.size() - 1) {
 					s += " + ";
 				} else {
-					s += " )";
+
 				}
 			} else {
 				counter++;
@@ -270,6 +276,7 @@ public class CalculationLogic {
 				}
 			}
 		}
+		s += " )";
 		String s1 = "";
 		s1 += "1";
 		for (int z = 0; z < arr2.size(); z++) {
