@@ -276,7 +276,9 @@ public class CalculationLogic {
 				}
 			}
 		}
-		s += " )";
+		if (!s.isEmpty()) {
+			s += " )";
+		}
 		String s1 = "";
 		s1 += "1";
 		for (int z = 0; z < arr2.size(); z++) {
